@@ -35,9 +35,11 @@ jobs:
     if: success() || failure()
     steps:
       - name: "success"
-        run: "echo ${{ success() }}"
+        if: success()
+        run: "true"
       - name: "failure"
-        run: "echo ${{ failure() }}"
+        if: failure()
+        run: "false"
   GoOnPass:
     name: great success
     timeout-minutes: 1
@@ -46,9 +48,11 @@ jobs:
     if: success() || failure()
     steps:
       - name: "success"
-        run: "echo ${{ success() }}"
+        if: success()
+        run: "true"
       - name: "failure"
-        run: "echo ${{ failure() }}"
+        if: failure()
+        run: "false"
   All:
     name: All checks and tests
     timeout-minutes: 1
@@ -56,5 +60,9 @@ jobs:
     runs-on: ubuntu-latest
     if: success() || failure()
     steps:
-      - name: "true"
+      - name: "success"
+        if: success()
         run: "true"
+      - name: "failure"
+        if: failure()
+        run: "false"
