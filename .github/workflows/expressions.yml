@@ -67,9 +67,9 @@ jobs:
     runs-on: ubuntu-latest
     if: success() || failure()
     steps:
-      - name: "success"
-        if: success()
-        run: "true"
       - name: "failure"
         if: failure()
         run: "false"
+      - name: "success"
+        if: success()
+        run: "true"
