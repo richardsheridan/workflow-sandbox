@@ -1,0 +1,60 @@
+name: expressions
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  Fail:
+    name: big fail
+    timeout-minutes: 1
+    runs-on: ubuntu-latest
+    steps:
+      - name: "false"
+        run: "false"
+  Pass:
+    name: great success
+    timeout-minutes: 1
+    runs-on: ubuntu-latest
+    steps:
+      - name: "true"
+        run: "true"
+  SkipOnFail:
+    name: great success
+    timeout-minutes: 1
+    needs: [ Fail ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: "true"
+        run: "true"
+  GoOnFail:
+    name: great success
+    timeout-minutes: 1
+    needs: [ Fail ]
+    runs-on: ubuntu-latest
+    if: success() || failure()
+    steps:
+      - name: "success"
+        run: "echo ${{ success() }}"
+      - name: "failure"
+        run: "echo ${{ failure() }}"
+  GoOnPass:
+    name: great success
+    timeout-minutes: 1
+    needs: [ Pass ]
+    runs-on: ubuntu-latest
+    if: success() || failure()
+    steps:
+      - name: "success"
+        run: "echo ${{ success() }}"
+      - name: "failure"
+        run: "echo ${{ failure() }}"
+  All:
+    name: All checks and tests
+    timeout-minutes: 1
+    needs: [ Fail, Pass, SkipOnFail, GoOnFail, Test, Extras, Codecov, Coverage ]
+    runs-on: ubuntu-latest
+    if: success() || failure()
+    steps:
+      - name: "true"
+        run: "true"
