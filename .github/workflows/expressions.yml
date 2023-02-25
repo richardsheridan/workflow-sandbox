@@ -12,6 +12,13 @@ jobs:
     steps:
       - name: "false"
         run: "false"
+  Bummer:
+    name: side fail
+    timeout-minutes: 1
+    runs-on: ubuntu-latest
+    steps:
+      - name: "false"
+        run: "false"
   Pass:
     name: great success
     timeout-minutes: 1
@@ -56,7 +63,7 @@ jobs:
   All:
     name: All checks and tests
     timeout-minutes: 1
-    needs: [ Fail, Pass, SkipOnFail, GoOnFail, GoOnPass ]
+    needs: [ Fail, Pass, SkipOnFail, GoOnFail, GoOnPass, Bummer ]
     runs-on: ubuntu-latest
     if: success() || failure()
     steps:
