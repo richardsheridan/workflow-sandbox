@@ -20,7 +20,7 @@ jobs:
       - name: "true"
         run: "true"
   SkipOnFail:
-    name: great success
+    name: skipme
     timeout-minutes: 1
     needs: [ Fail ]
     runs-on: ubuntu-latest
@@ -28,7 +28,7 @@ jobs:
       - name: "true"
         run: "true"
   GoOnFail:
-    name: great success
+    name: good anyway
     timeout-minutes: 1
     needs: [ Fail ]
     runs-on: ubuntu-latest
@@ -41,7 +41,7 @@ jobs:
         if: failure()
         run: "false"
   GoOnPass:
-    name: great success
+    name: greater success
     timeout-minutes: 1
     needs: [ Pass ]
     runs-on: ubuntu-latest
