@@ -65,7 +65,6 @@ jobs:
     timeout-minutes: 1
     needs: [ Fail, Pass, SkipOnFail, GoOnFail, GoOnPass, Bummer ]
     runs-on: ubuntu-latest
-    if: success() || failure()
     steps:
       - name: "failure"
         if: failure()
