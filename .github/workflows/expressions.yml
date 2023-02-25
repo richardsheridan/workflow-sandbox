@@ -56,7 +56,7 @@ jobs:
   All:
     name: All checks and tests
     timeout-minutes: 1
-    needs: [ Fail, Pass, SkipOnFail, GoOnFail, Test, Extras, Codecov, Coverage ]
+    needs: [ Fail, Pass, SkipOnFail, GoOnFail, GoOnPass ]
     runs-on: ubuntu-latest
     if: success() || failure()
     steps:
