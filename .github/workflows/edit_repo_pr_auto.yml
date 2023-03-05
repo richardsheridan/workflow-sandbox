@@ -32,9 +32,16 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git commit -am "Dependency updates"
           git push --force --set-upstream origin bump_from_${GITHUB_SHA:0:6}
-          gh pr create --base master --head bump_from_${GITHUB_SHA:0:6} \
-              --title "Bump dependencies from commit ${GITHUB_SHA:0:6}" \
-              --body "" --label dependencies
+          # git push returns before github is ready for a pr, we have to poll until success
+          for BACKOFF in 1 2 4 8 15 15 15 15 0; do
+              sleep $BACKOFF
+              if gh pr create \
+                --title "Bump dependencies from commit ${GITHUB_SHA:0:6}" \
+                --body "" --label dependencies; then
+                break
+              fi
+          done
+          (( $BACKOFF )) || echo "Could not create the PR" && false
           # gh pr create returns before the pr is ready, we have to poll until success
           # https://github.com/cli/cli/issues/2619#issuecomment-1240543096        
           for BACKOFF in 1 2 4 8 15 15 15 15; do
@@ -43,4 +50,4 @@ jobs:
                   break
               fi
           done
-          exit 1
+          (( $BACKOFF )) || echo "Could not set automerge" && false
