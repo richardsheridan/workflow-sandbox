@@ -31,7 +31,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git commit -am "Dependency updates"
-          git push --force
+          git push --force --set-upstream origin
           gh pr create --base master --label dependencies \
               --title "Bump dependencies from commit ${GITHUB_SHA:0:6}" \
               --body ""
