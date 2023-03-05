@@ -36,6 +36,7 @@ jobs:
         run: |
           # git push returns before github is ready for a pr, we have to poll until success
           for BACKOFF in 1 2 4 8 15 15 15 15 0; do
+              echo pr sleep $BACKOFF
               sleep $BACKOFF
               if gh pr create \
                 --title "Bump dependencies from commit ${GITHUB_SHA:0:6}" \
@@ -46,7 +47,8 @@ jobs:
           (( $BACKOFF )) || echo "Could not create the PR" && false
           # gh pr create returns before the pr is ready, we have to poll until success
           # https://github.com/cli/cli/issues/2619#issuecomment-1240543096        
-          for BACKOFF in 1 2 4 8 15 15 15 15; do
+          for BACKOFF in 1 2 4 8 15 15 15 15 0; do
+              echo automerge sleep $BACKOFF
               sleep $BACKOFF
               if gh pr merge --auto --squash; then
                   break
