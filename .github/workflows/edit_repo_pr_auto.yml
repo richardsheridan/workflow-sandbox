@@ -24,14 +24,16 @@ jobs:
       - name: Bump dependencies
         run: echo "silly text" >> silly.txt
       - name: Commit changes
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
-          git switch --force-create bump_from_${GITHUB_SHA:0:6}
+          git switch --force-create autodeps/bump_from_${GITHUB_SHA:0:6}
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git commit -am "Dependency updates"
           git push --force --set-upstream origin bump_from_${GITHUB_SHA:0:6}
+      - name: Make automerge PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
           # git push returns before github is ready for a pr, we have to poll until success
           for BACKOFF in 1 2 4 8 15 15 15 15 0; do
               sleep $BACKOFF
