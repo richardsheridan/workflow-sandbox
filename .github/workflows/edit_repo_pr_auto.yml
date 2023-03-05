@@ -29,7 +29,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git commit -am "Dependency updates"
-          git push --force --set-upstream origin bump_from_${GITHUB_SHA:0:6}
+          git push --force --set-upstream origin autodeps/bump_from_${GITHUB_SHA:0:6}
       - name: Make automerge PR
         env:
           GH_TOKEN: ${{ github.token }}
