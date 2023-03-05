@@ -24,6 +24,8 @@ jobs:
       - name: Bump dependencies
         run: echo "silly text" >> silly.txt
       - name: Commit changes
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           git switch --force-create bump_from_${GITHUB_SHA:0:6}
           git config user.name 'github-actions[bot]'
