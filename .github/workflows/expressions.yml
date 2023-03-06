@@ -18,7 +18,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "false"
+        id: "x"
         run: "false"
+      - name: "but do this anyway"
+        if: failure()
+        run: "true"
   Pass:
     name: great success
     timeout-minutes: 1
