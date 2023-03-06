@@ -22,8 +22,10 @@ jobs:
         with:
           python-version: "3.8"
       - name: Bump dependencies
-        run: echo "silly text" >> silly.txt
+        id: black
+        run: false || echo "silly text" >> silly.txt && echo "changed=true"
       - name: Commit changes
+        if: steps.black.outputs.changed == "true"
         run: |
           git switch --force-create autodeps/bump_from_${GITHUB_SHA:0:6}
           git config user.name 'github-actions[bot]'
