@@ -7,6 +7,7 @@ on:
 jobs:
   Fail:
     name: big fail
+    continue-on-error: true
     timeout-minutes: 1
     runs-on: ubuntu-latest
     steps:
@@ -14,6 +15,7 @@ jobs:
         run: "false"
   Bummer:
     name: side fail
+    continue-on-error: true
     timeout-minutes: 1
     runs-on: ubuntu-latest
     steps:
