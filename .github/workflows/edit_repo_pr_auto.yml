@@ -24,7 +24,7 @@ jobs:
       - name: Bump dependencies
         id: black
         run: |
-          (true && echo "changed=false" >> $GITHUB_OUTPUT) || \
+          (false && echo "changed=false" >> $GITHUB_OUTPUT) || \
           (echo "silly text" >> silly.txt && echo "changed=true" >> $GITHUB_OUTPUT)
       - name: Commit changes with automerge pr
         if: steps.black.outputs.changed == 'true'
