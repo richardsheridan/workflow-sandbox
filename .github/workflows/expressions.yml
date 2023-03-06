@@ -65,7 +65,7 @@ jobs:
     timeout-minutes: 1
     needs: [ Fail, Pass, SkipOnFail, GoOnFail, GoOnPass, Bummer ]
     runs-on: ubuntu-latest
+    if: always()
     steps:
       - name: "always green"
-        if: success() || failure()
         run: "true"
