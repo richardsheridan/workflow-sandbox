@@ -27,7 +27,7 @@ jobs:
           (true && echo "changed=false" >> $GITHUB_OUTPUT) || \
           (echo "silly text" >> silly.txt && echo "changed=true" >> $GITHUB_OUTPUT)
       - name: Commit changes with automerge pr
-        if: steps.black.outputs.changed
+        if: steps.black.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
